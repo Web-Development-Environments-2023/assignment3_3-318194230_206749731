@@ -1,4 +1,5 @@
 <template>
+ <div class="background-div">
   <div class="container">
     <h1 class="title">Login</h1>
     <b-form @submit.prevent="onLogin">
@@ -60,6 +61,7 @@
     <!-- <b-card class="mt-3" header="Form Data Result">
       <pre class="m-0">{{ form }}</pre>
     </b-card> -->
+  </div>
   </div>
 </template>
 
@@ -130,7 +132,52 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.container {
-  max-width: 400px;
+.background-div {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/1412206.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 0; /* Adjust the z-index value */
 }
+
+
+.container {
+  background-color: #ffffff; /* Set the background color you want */
+
+  max-width: 40%;
+  margin: 4rem auto;
+  position: relative;
+  border: 2px solid #a15252;
+  border-radius: 50px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  
+  /* Responsive styles */
+  @media (max-width: 767px) {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: none;
+    margin: 2rem auto;
+  }
+}
+
+.b-button.register-btn {
+  width: 250px;
+}
+
+@media (max-width: 767px) {
+  .b-button.register-btn {
+    width: 100%;
+  }
+}
+
+
+
+
 </style>

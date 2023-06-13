@@ -1,9 +1,13 @@
 <template>
+
   <div class="container">
-    <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
+    
+    <h1 class="title">Welcome To Recipes Website</h1>    
+    <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" />
+    
+    
+    <!-- <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link> -->
+     <!-- {{ !$root.store.username }}  -->
     <RecipePreviewList
       title="Last Viewed Recipes"
       :class="{
@@ -12,13 +16,16 @@
         center: true
       }"
       disabled
-    ></RecipePreviewList>
+    ></RecipePreviewList> 
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
       Centeredasdasdad
     </div>-->
+
   </div>
+  
+  
 </template>
 
 <script>
@@ -42,4 +49,21 @@ export default {
   pointer-events: none;
   cursor: default;
 }
+    .title {
+        text-align: center;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        animation: fade 2s infinite;
+    }
+
+    // @keyframes fade {
+    //     0% {
+    //         opacity: 5;
+    //     }
+    //     50% {
+    //         opacity: 0.5;
+    //     }
+    //     100% {
+    //         opacity: 1;
+    //     }
+    // }
 </style>
