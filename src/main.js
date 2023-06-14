@@ -3,7 +3,12 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
-
+// axios.defaults.withCredentials = true;
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+// Install BootstrapVue
+Vue.use(BootstrapVue);
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin);
 // Import routes and configure VueRouter
 import routes from "./routes";
 import VueRouter from "vue-router";
@@ -11,6 +16,15 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
+import { BButton, BModal } from 'bootstrap-vue';
+
+export default {
+  components: {
+    'b-button': BButton,
+    'b-modal': BModal
+  },
+  // Rest of the code
+}
 
 // Import and configure plugins
 import Vuelidate from "vuelidate";

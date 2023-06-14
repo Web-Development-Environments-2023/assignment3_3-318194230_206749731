@@ -22,9 +22,9 @@
           <router-link :to="{ name: 'login' }">Login</router-link>
         </b-nav-item>
 
-        <b-nav-item v-if="$root.store.username">
+        <!-- <b-nav-item v-if="$root.store.username">
            <router-link :to="{ name: 'login' }">CreateRecipe</router-link>
-        </b-nav-item>
+        </b-nav-item> -->
 
         <!-- <b-nav-item v-else>
           <span>{{ $root.store.username }}:</span>
@@ -38,7 +38,7 @@
             <em>Personal</em>
           </template>
           <b-dropdown-item :to="{ name: 'favorite' }">Favorite Recipes</b-dropdown-item>
-          <b-dropdown-item :to="{ name: 'favorite' }">Private Recipes</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'PrivateRecipes' }">Private Recipes</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'favorite' }">Familia Recipes</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -57,9 +57,11 @@
           <b-dropdown-item :to="{ name: 'login' }">Login</b-dropdown-item>
           <b-dropdown-item @click="Logout">Logout</b-dropdown-item>
         </b-nav-item-dropdown>
+            <ModalRecipe v-if="$root.store.username"></ModalRecipe>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
+
 </div>
 
     <router-view />
@@ -67,12 +69,37 @@
 </template>
 
 <script>
+import ModalRecipe from "./components/ModalRecipe.vue";
+
+
 export default {
   name: "App",
+  components: {
+    ModalRecipe,
+  },
   methods: {
-    Logout() {
+    async Logout() {
       this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
+      
+          if (!this.$root.store.username) {
+            this.$root.toast("Logout", "User logged out successfully", "success");
+          }
+          else if (this.$root.store.username){
+            this.$root.toast("Logout", "User already log out ", "danger");
+          }
+
+        try {
+          const response = await this.axios.post(
+            this.$root.store.server_domain + "/Logout",
+
+            { withCredentials: true }
+          );
+
+          console.log(response.data);
+
+        } catch (error) {
+          console.error(error);
+        }
 
       this.$router.push("/").catch(() => {
         this.$forceUpdate();

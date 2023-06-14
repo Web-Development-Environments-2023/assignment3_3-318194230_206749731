@@ -17,6 +17,12 @@ const routes = [
     name: "login",
     component: () => import("./pages/LoginPage"),
   },
+  
+  {
+    path: "/PrivateRecipes",
+    name: "PrivateRecipes",
+    component: () => import("./pages/PrivateRecipes"),
+  },
   {
     path: "/search",
     name: "search",
@@ -32,6 +38,7 @@ const routes = [
     name: "notFound",
     component: NotFound,
   },
+  
 ];
 
 export default routes;

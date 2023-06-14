@@ -262,6 +262,7 @@ export default {
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
+        
       }
     },
     onRegister() {

@@ -6,9 +6,9 @@
     <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" />
     
     
-    <!-- <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link> -->
-     <!-- {{ !$root.store.username }}  -->
-    <RecipePreviewList
+    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
+     {{ !$root.store.username }} 
+    <!-- <RecipePreviewList
       title="Last Viewed Recipes"
       :class="{
         RandomRecipes: true,
@@ -16,12 +16,12 @@
         center: true
       }"
       disabled
-    ></RecipePreviewList> 
+    ></RecipePreviewList>  -->
     <!-- <div
-      style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
+      style="position: absolute;top: 0%;left: 50%;transform: translate(-50%, -50%);"
     >
       Centeredasdasdad
-    </div>-->
+    </div> -->
 
   </div>
   
@@ -41,29 +41,29 @@ export default {
 .RandomRecipes {
   margin: 10px 0 10px;
 }
+
+.recipe-preview {
+  width: 100px; /* Adjust the width as per your requirements */
+  height: 100px; /* Adjust the height as per your requirements */
+  object-fit: cover; /* Preserve the aspect ratio and cover the container */
+  float: left; /* Align the photos on the left side */
+  margin-right: 10px; /* Add some space between the photos */
+  margin-bottom: 10px; /* Add some space below each photo */
+}
+
 .blur {
   -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
   filter: blur(2px);
 }
+
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
 }
-    .title {
-        text-align: center;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        animation: fade 2s infinite;
-    }
 
-    // @keyframes fade {
-    //     0% {
-    //         opacity: 5;
-    //     }
-    //     50% {
-    //         opacity: 0.5;
-    //     }
-    //     100% {
-    //         opacity: 1;
-    //     }
-    // }
+.title {
+  text-align: center;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  animation: fade 2s infinite;
+}
 </style>
