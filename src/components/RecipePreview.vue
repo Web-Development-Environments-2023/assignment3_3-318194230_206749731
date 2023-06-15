@@ -7,11 +7,13 @@
       tag="article"
       style="max-width: 20rem;"
       class="mb-2"
-      :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }"
+      @click="navigateToRecipe"
+      @mouseover="setHovered(true)"
+      @mouseleave="setHovered(false)"
     >
       <b-card-text>
-        <h5 class="title" style="font-size: 1.2rem;">{{ recipe.title }}</h5>
-        <ul class="recipe-overview" style="font-size: 0.8rem;">
+        <h5 class="title" :class="{ 'underline': isHovered }"><strong>{{ recipe.title }}</strong></h5>
+        <ul class="recipe-overview" :class="{ 'underline': isHovered }" :style="{ fontSize: '0.8rem', color: isImageClicked ? 'red' : 'inherit' }">
           <li>Recipe ID: {{ recipe.recipe_id }}</li>
           <li>Popularity: {{ recipe.popularity }}</li>
           <li>Vegan: {{ recipe.vegan }}</li>
@@ -20,7 +22,16 @@
           <!-- Add any other recipe data you want to display -->
         </ul>
       </b-card-text>
-      <b-button :to="{ name: 'recipe', params: { recipeId: recipe.recipe_id } }"  variant="primary">Add Favorite</b-button>
+      <div class="d-flex justify-content-between">
+        <b-button
+          v-if="$root.store.username"
+          variant="primary"
+          class="mb-2"
+          @click.stop="addFavrecipe"
+        >
+          <b-icon icon="heart-fill"></b-icon> Like
+        </b-button>
+      </div>
     </b-card>
   </div>
 </template>
@@ -33,11 +44,46 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isHovered: false,
+      isImageClicked: false,
+    };
+  },
+  methods: {
+    navigateToRecipe() {
+      this.$router.push({ name: 'recipe', params: { recipeId: this.recipe.recipe_id } });
+    },
+    setHovered(value) {
+      this.isHovered = value;
+    },
+    handleImageClick() {
+      this.isImageClicked = true;
+    },
+    async addFavrecipe() {
+      try {
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/users/favorites",
+          {
+            username: this.$root.store.username,
+            recipeId: this.recipe.recipe_id,
+          }
+        );
+        // Handle the response or perform any other actions
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
+      }
+    },
+  },
 };
 </script>
 
 <style scoped>
 .title {
   font-size: 1.2rem;
+}
+.underline {
+  text-decoration: underline;
 }
 </style>

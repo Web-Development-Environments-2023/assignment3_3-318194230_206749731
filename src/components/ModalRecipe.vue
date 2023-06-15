@@ -1,16 +1,9 @@
 <template>
-
   <div>
+    <!-- Button to open the modal -->
     <b-button v-b-modal.modal-prevent-closing>Create Recipe</b-button>
-    
 
-    <div class="mt-3">
-      <div v-if="submittedRecipes.length === 0"></div>
-      <ul v-else class="mb-0 pl-3">
-        <li v-for="recipe in submittedRecipes" :key="recipe.id">{{ recipe.title }}</li>
-      </ul>
-    </div>
-
+    <!-- Modal for creating a recipe -->
     <b-modal
       id="modal-prevent-closing"
       ref="modal"
@@ -19,22 +12,28 @@
       @hidden="resetModal"
       @ok="handleOk"
     >
+      <!-- Recipe creation form -->
       <form ref="form" @submit.stop.prevent="handleSubmit">
 
+        <!-- Recipe ID input -->
         <b-form-group
           label="Recipe ID"
           label-for="recipe-id-input"
-          invalid-feedback="Recipe ID is required"
           :state="recipeIdState"
         >
           <b-form-input
             id="recipe-id-input"
             v-model="recipeId"
+            type="number"
             :state="recipeIdState"
             required
+            min="1"
           ></b-form-input>
+          <b-form-invalid-feedback v-if="!recipeId">Recipe ID is required</b-form-invalid-feedback>
+          <b-form-invalid-feedback v-if="recipeId && recipeId < 1">Number must be positive</b-form-invalid-feedback>
         </b-form-group>
 
+        <!-- Title input -->
         <b-form-group
           label="Title"
           label-for="title-input"
@@ -49,6 +48,7 @@
           ></b-form-input>
         </b-form-group>
 
+        <!-- Image input -->
         <b-form-group
           label="Image"
           label-for="image-input"
@@ -63,6 +63,7 @@
           ></b-form-input>
         </b-form-group>
 
+        <!-- Ready in Minutes input -->
         <b-form-group
           label="Ready in Minutes"
           label-for="ready-input"
@@ -75,9 +76,11 @@
             :state="readyInMinutesState"
             type="number"
             required
+            min="0"
           ></b-form-input>
         </b-form-group>
 
+        <!-- Popularity input -->
         <b-form-group
           label="Popularity"
           label-for="popularity-input"
@@ -90,21 +93,26 @@
             :state="popularityState"
             type="number"
             required
+            min="0"
           ></b-form-input>
         </b-form-group>
 
+        <!-- Vegetarian checkbox -->
         <b-form-group label="Vegetarian">
           <b-form-checkbox v-model="vegetarian"></b-form-checkbox>
         </b-form-group>
 
+        <!-- Vegan checkbox -->
         <b-form-group label="Vegan">
           <b-form-checkbox v-model="vegan"></b-form-checkbox>
         </b-form-group>
 
+        <!-- Gluten Free checkbox -->
         <b-form-group label="Gluten Free">
           <b-form-checkbox v-model="glutenFree"></b-form-checkbox>
         </b-form-group>
 
+        <!-- Extended Ingredients input -->
         <b-form-group
           label="Extended Ingredients"
           label-for="ingredients-input"
@@ -119,6 +127,7 @@
           ></b-form-input>
         </b-form-group>
 
+        <!-- Instructions textarea -->
         <b-form-group
           label="Instructions"
           label-for="instructions-input"
@@ -133,6 +142,7 @@
           ></b-form-textarea>
         </b-form-group>
 
+        <!-- Servings input -->
         <b-form-group
           label="Servings"
           label-for="servings-input"
@@ -145,9 +155,11 @@
             :state="servingsState"
             type="number"
             required
+            min="0"
           ></b-form-input>
         </b-form-group>
 
+        <!-- Analyzed Instructions input -->
         <b-form-group
           label="Analyzed Instructions"
           label-for="analyzed-instructions-input"
@@ -162,7 +174,6 @@
           ></b-form-input>
         </b-form-group>
 
-        <!-- <b-button type="submit" variant="primary">OdedeK</b-button> -->
       </form>
     </b-modal>
   </div>
@@ -172,6 +183,7 @@
 export default {
   data() {
     return {
+      // Recipe form data
       recipeId: "",
       recipeIdState: null,
       title: "",
@@ -193,13 +205,17 @@ export default {
       servingsState: null,
       analyzedInstructions: "",
       analyzedInstructionsState: null,
-      submittedRecipes: [],
+      submittedRecipes: [], // List of submitted recipes
     };
   },
+
   methods: {
+    // Checks if the form is valid
     checkFormValidity() {
       return this.$refs.form.checkValidity();
     },
+
+    // Resets the recipe creation modal
     resetModal() {
       this.$refs.form.classList.remove("was-validated");
       this.recipeId = "";
@@ -224,50 +240,60 @@ export default {
       this.analyzedInstructions = "";
       this.analyzedInstructionsState = null;
     },
+
+    // Handles the OK button click in the modal
     async handleOk(bvModalEvent) {
       bvModalEvent.preventDefault();
       this.handleSubmit();
+      this.$emit("recipe-id-selected", this.recipeId);
     },
+
+    // Submits the recipe form
     async handleSubmit() {
       if (!this.checkFormValidity()) {
         this.$refs.form.classList.add("was-validated");
         return;
       }
 
-        try {
-          const response = await this.axios.post(
-            this.$root.store.server_domain + "/users/MyRecipes",
-            {
-              recipe_id: this.recipeId,
-              title: this.title,
-              image: this.image,
-              readyInMinutes: this.readyInMinutes,
-              popularity: this.popularity,
-              vegetarian: this.vegetarian,
-              vegan: this.vegan,
-              glutenFree: this.glutenFree,
-              extendedIngredients: this.extendedIngredients,
-              instructions: this.instructions,
-              servings: this.servings,
-              analyzedInstructions: this.analyzedInstructions,
-            },
-            { withCredentials: true }
-          );
+      // Pad the recipe ID with leading '9' characters to make it 8 characters long
+      const paddedRecipeId = this.recipeId.padStart(8, '9');
 
-          console.log(response.data);
-
-          this.submittedRecipes.push({
-            id: response.data.id,
+      try {
+        // Send a POST request to create the recipe
+        const response = await this.axios.post(
+          this.$root.store.server_domain + "/users/MyRecipes",
+          {
+            recipe_id: paddedRecipeId,
             title: this.title,
-          });
+            image: this.image,
+            readyInMinutes: this.readyInMinutes,
+            popularity: this.popularity,
+            vegetarian: this.vegetarian,
+            vegan: this.vegan,
+            glutenFree: this.glutenFree,
+            extendedIngredients: this.extendedIngredients,
+            instructions: this.instructions,
+            servings: this.servings,
+            analyzedInstructions: this.analyzedInstructions,
+          },
+          { withCredentials: true }
+        );
 
-          this.$nextTick(() => {
-            this.$bvModal.hide("modal-prevent-closing");
-          });
-        } catch (error) {
-          console.error(error);
-        }
+        console.log(response.data);
 
+        // Add the submitted recipe to the list
+        this.submittedRecipes.push({
+          id: response.data.id,
+          title: this.title,
+        });
+
+        // Hide the modal
+        this.$nextTick(() => {
+          this.$bvModal.hide("modal-prevent-closing");
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
@@ -275,6 +301,7 @@ export default {
 
 <style>
 .was-validated .form-control:invalid {
-  border-color: #dc3545 !important;
+  border-color: #f50c24 !important;
 }
 </style>
+

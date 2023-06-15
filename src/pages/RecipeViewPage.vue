@@ -88,6 +88,7 @@ export default {
             response = await this.axios.get(
               `${this.$root.store.server_domain}/recipes/fullRecipeReview/${this.$route.params.recipeId}`
             );
+            
 
 
 
@@ -136,7 +137,7 @@ export default {
 .container {
   /* Set the container styles */
     position: absolute;
-  max-width: 60%;
+  max-width: 50%;
   margin: 2rem auto;
   position: relative;
   border: 2.5px solid #eb0808;

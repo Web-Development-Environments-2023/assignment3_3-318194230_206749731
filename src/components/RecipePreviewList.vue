@@ -88,12 +88,9 @@ export default {
           this.$root.store.server_domain + "/recipes/random",
           {withCredentials:true}
         );
-
-        // console.log(response);
         this.recipes = [];
         const recipes = response.data;
         this.recipes.push(...recipes);
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
