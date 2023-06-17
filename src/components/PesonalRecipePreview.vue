@@ -26,18 +26,30 @@
             <b-card-text>
               <div class="recipe-details">
                 <h2 class="recipe-title">Recipe Details:</h2>
-                <ul class="recipe-list">
-                  <!-- Recipe ID -->
-                  <li><strong>Recipe ID:</strong> {{ recipe.recipe_id }}</li>
-                  <!-- Popularity -->
-                  <li><strong>Popularity:</strong> {{ recipe.popularity }}</li>
-                  <!-- Vegan -->
-                  <li><strong>Vegan:</strong> {{ recipe.vegan }}</li>
-                  <!-- Vegetarian -->
-                  <li><strong>Vegetarian:</strong> {{ recipe.vegetarian }}</li>
-                  <!-- Gluten Free -->
-                  <li><strong>Gluten Free:</strong> {{ recipe.glutenFree }}</li>
-                </ul>
+                <table class="recipe-table">
+                  <tbody>
+                    <tr class="table-row">
+                      <th>Recipe ID:</th>
+                      <td>{{ recipe.recipe_id }}</td>
+                    </tr>
+                    <tr class="table-row">
+                      <th>Popularity:</th>
+                      <td>{{ recipe.popularity }}</td>
+                    </tr>
+                    <tr class="table-row">
+                      <th>Vegan:</th>
+                      <td>{{ recipe.vegan }}</td>
+                    </tr>
+                    <tr class="table-row">
+                      <th>Vegetarian:</th>
+                      <td>{{ recipe.vegetarian }}</td>
+                    </tr>
+                    <tr class="table-row">
+                      <th>Gluten Free:</th>
+                      <td>{{ recipe.glutenFree }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </b-card-text>
           </div>
@@ -125,4 +137,13 @@ export default {
     padding: 0.5rem;
   }
 }
+
+.table-row {
+  margin-bottom: 5px;
+}
+
+.recipe-title {
+  text-align: left;
+}
+
 </style>

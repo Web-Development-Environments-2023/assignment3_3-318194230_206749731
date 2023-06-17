@@ -39,7 +39,7 @@
                 </template>
                 <b-dropdown-item :to="{ name: 'FavoriteRecipePage' }">Favorite Recipes</b-dropdown-item>
                 <b-dropdown-item :to="{ name: 'PesonalRecipes' }">Personal Recipes</b-dropdown-item>
-                <b-dropdown-item :to="{ name: 'favorite' }">Family Recipes</b-dropdown-item>
+                <b-dropdown-item :to="{ name: 'FamilyRecipePage' }">Family Recipes</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
 

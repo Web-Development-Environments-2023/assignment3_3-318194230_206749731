@@ -1,49 +1,61 @@
 <template>
-  <!-- The main container for the recipe collection -->
   <div class="background-div">
-    <!-- Introduction text -->
-    <h4 style="font-family: 'Cleccj', sans-serif; color: black;">
-      Welcome to my family recipes collection!
-    </h4>
-
-    <div class="background-overlay">
-      <!-- Recipe container -->
-      <div class="container mt-4">
-        
-        <!-- Recipe header section -->
-        <div class="recipe-header mt-3 mb-4">
-          <!-- Displaying the recipe title -->
+        <div class="background-overlay">
+          <div class="container">
+              <div class="recipe-header mt-3 mb-4">
           <h4 class="centered-text bold-text glow-effect">Recipe Title: {{ recipe.recipeName}}</h4>
           <!-- Displaying the recipe image -->
-          <img :src="recipe.image" class="center" />
+          <div class="center">
+            <img v-for="image in recipe.images" :src="image" class="recipe-image" :key="image" />
+          </div>
         </div>
 
         <div class="recipe-body">
-          <div class="wrapper">
-            <!-- Recipe details section -->
-            <b-card-text>
-              <div class="recipe-details">
-                <!-- Title for the recipe details -->
+                <div class="wrapper">
+                <b-card-text>
+                <div class="recipe-details">
                 <h2 class="recipe-title">Recipe Details:</h2>
-                <ul class="recipe-list">
-                  <!-- Displaying the recipe ID -->
-                  <li><strong>Owner of this recipe:</strong> {{ recipe.recipeOwner}}</li>
-                  <!-- Displaying the recipe popularity -->
-                  <li><strong>Best time to make it:</strong> {{ recipe.specialOccasions}}</li>
-                  <!-- Displaying whether the recipe is vegan or not -->
-                  <li><strong>Cooking Time::</strong> {{ recipe.cookingTime }}</li>
-                  <!-- Displaying whether the recipe is vegetarian or not -->
-                  <li>
-                  <strong>Ingredients:</strong>
-                  <ul>
-                    <li v-for="ingredient in recipe.components" :key="ingredient">
-                      {{ ingredient }}
-                    </li>
-                  </ul>
-                  </li>
-                  <!-- Displaying whether the recipe is gluten-free or not -->
-                  <li><strong>Preparation Method:</strong> {{recipe.preparationMethod}}</li>
-                </ul>
+                <table class="recipe-table">
+                  <tbody>
+      <tr>
+        <td><strong>Owner of this recipe:</strong></td>
+        <td>{{ recipe.recipeOwner }}</td>
+      </tr>
+      <tr>
+        <td><strong>Best time to make it:</strong></td>
+        <td>
+          <table class="recipe-table">
+            <tbody>
+              <tr v-for="time in recipe.specialOccasions" :key="time">
+                <td>{{ time }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Cooking Time:</strong></td>
+        <td>{{ recipe.cookingTime }}</td>
+      </tr>
+      <tr>
+        <td><strong>Ingredients:</strong></td>
+        <td>
+          <table class="recipe-table">
+            <tbody>
+              <tr v-for="ingredient in recipe.components" :key="ingredient">
+                <td>{{ ingredient }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Preparation Method:</strong></td>
+        <td>{{ recipe.preparationMethod }}</td>
+      </tr>
+    </tbody>
+
+                </table>
               </div>
             </b-card-text>
           </div>
@@ -131,5 +143,18 @@ export default {
   .container {
     padding: 0.5rem;
   }
+}
+
+/* Updated CSS for recipe table */
+.recipe-table {
+  width: 100%;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.recipe-table th,
+
+.recipe-table th {
+  font-weight: bold;
 }
 </style>

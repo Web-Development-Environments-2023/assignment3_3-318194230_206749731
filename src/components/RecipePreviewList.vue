@@ -1,17 +1,32 @@
 <template>
-  <b-container>
-    <h3>
-      {{ title }}:
-      <slot></slot>
-    </h3>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
-        <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
-  </b-container>
-</template>
+  <div>
+    <b-carousel
+      id="carousel-1"
+      v-model="slide"
+      :interval="4000"
+      controls
+      indicators
+      background="#ababab"
+      style="text-shadow: 1px 0px 2px #333; height: 400px; overflow: hidden;"
+      @sliding-start="onSlideStart"
+      @sliding-end="onSlideEnd"
+    >
+      <template v-if="recipes.length === 0">
+        <b-carousel-slide>
+          <div class="slide-content">
+            <h2 class="no-recipes">YOU DON'T HAVE FAMILY RECIPES</h2>
+          </div>
+        </b-carousel-slide>
+      </template>
 
+      <b-carousel-slide v-else v-for="r in recipes" :key="r.id" :text="r.instructions" img-src="https://fastly.picsum.photos/id/923/1024/480.jpg?hmac=wH-OHHwRuzh0Br74_C1jTWd06IZxd9zZCkX-ZfMMezc">
+        <div class="slide-content">
+          <RecipePreview class="recipePreview" :recipe="r" />
+        </div>
+      </b-carousel-slide>
+    </b-carousel>
+  </div>
+</template>
 <script>
 import RecipePreview from "./RecipePreview.vue";
 export default {
@@ -94,13 +109,49 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async updateLastSeenRecipes() {
+      try {
+        const response = await this.axios.get(
+         
+          this.$root.store.server_domain + "/users/LastViewed",
+         
+        );
+        const recipes = [
+          response.data[0],
+          response.data[1],
+          response.data[2],
+        ];
+        this.recipes = [];
+        for (let i = 0; i < recipes.length; i++) {
+          if (recipes[i] !== null) {
+            this.recipes.push(recipes[i]);
+          }
+        }
+     
+      } catch (error) {
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.container {
-  min-height: 400px;
+.slide-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.no-recipes {
+  text-align: center;
+  font-size: 24px;
+  color: #fff;
+  padding: 20px;
+}
+
+body {
+  overflow: hidden;
 }
 </style>

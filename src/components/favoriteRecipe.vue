@@ -25,18 +25,35 @@
               <div class="recipe-details">
                 <!-- Title for the recipe details -->
                 <h2 class="recipe-title">Recipe Details:</h2>
-                <ul class="recipe-list">
-                  <!-- Displaying the recipe ID -->
-                  <li><strong>Recipe ID:</strong> {{ recipe.recipe_id }}</li>
-                  <!-- Displaying the recipe popularity -->
-                  <li><strong>Popularity:</strong> {{ recipe.popularity }}</li>
-                  <!-- Displaying whether the recipe is vegan or not -->
-                  <li><strong>Vegan:</strong> {{ recipe.vegan }}</li>
-                  <!-- Displaying whether the recipe is vegetarian or not -->
-                  <li><strong>Vegetarian:</strong> {{ recipe.vegetarian }}</li>
-                  <!-- Displaying whether the recipe is gluten-free or not -->
-                  <li><strong>Gluten Free:</strong> {{ recipe.glutenFree }}</li>
-                </ul>
+                <table class="recipe-table">
+                  <tbody>
+                    <!-- Displaying the recipe ID -->
+                    <tr class="table-row">
+                      <th>Recipe ID:</th>
+                      <td>{{ recipe.recipe_id }}</td>
+                    </tr>
+                    <!-- Displaying the recipe popularity -->
+                    <tr class="table-row">
+                      <th>Popularity:</th>
+                      <td>{{ recipe.popularity }}</td>
+                    </tr>
+                    <!-- Displaying whether the recipe is vegan or not -->
+                    <tr class="table-row">
+                      <th>Vegan:</th>
+                      <td>{{ recipe.vegan }}</td>
+                    </tr>
+                    <!-- Displaying whether the recipe is vegetarian or not -->
+                    <tr class="table-row">
+                      <th>Vegetarian:</th>
+                      <td>{{ recipe.vegetarian }}</td>
+                    </tr>
+                    <!-- Displaying whether the recipe is gluten-free or not -->
+                    <tr class="table-row">
+                      <th>Gluten Free:</th>
+                      <td>{{ recipe.glutenFree }}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </b-card-text>
           </div>
@@ -124,5 +141,25 @@ export default {
   .container {
     padding: 0.5rem;
   }
+}
+
+/* Updated CSS for recipe table */
+.recipe-table {
+  width: 100%;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.recipe-table th,
+.recipe-table td {
+  padding: 0.2rem;
+}
+
+.recipe-table th {
+  font-weight: bold;
+}
+
+.table-row {
+  /* margin-bottom: 5px; */
 }
 </style>

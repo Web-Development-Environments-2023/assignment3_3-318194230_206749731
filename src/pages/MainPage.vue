@@ -1,20 +1,31 @@
 <template>
-  <div class="container">
-    <h1 class="title">Welcome To Recipes Website</h1>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <RecipePreviewList title="Explore these recipes" class="RandomRecipes" />
-        <div class="text-center">
-          <router-link v-if="!$root.store.username" to="/login" class="btn btn-primary">
-            You need to Login to view this
-          </router-link>
+  <body>
+    <div class="container">
+      <div class='container1'>
+      <h1 class="horizontal-cut-text">Welcome To Recipes Website</h1>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="left-column">
+            <RecipePreviewList ref="recipeList" title="Explore these recipes" class="RandomRecipes" />
+            <div class="text-center">
+              <button @click="updateRandomRecipes" class="btn btn-info">
+                Get New Recipes
+              </button>
+            </div>
+          </div>
         </div>
-        <button @click="updateRandomRecipes" class="btn btn-primary mt-3">
-          Get Random Recipes
-        </button>
+        <div class="col-md-6">
+          <div class="right-column">
+            <router-link to="/login" v-if="!$root.store.username" class="btn btn-info btn-lg custom-button" role="button">You need to Login to view this</router-link>
+            <RecipePreviewList ref="recipewtach" v-if="$root.store.username" title="Your Last seen Recipes" class="lastseen" />
+            <div class="text-center">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+</body>
 </template>
 
 <script>
@@ -27,13 +38,48 @@ export default {
     updateRandomRecipes() {
       this.$refs.recipeList.updateRecipes();
     },
+    updateLastSeenRecipes() {
+      this.$refs.recipewtach.updateLastSeenRecipes();
+    },
+    
   },
 };
 </script>
 
 <style lang="scss" scoped>
+
+
+.title {
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  animation: fade 2s infinite;
+}
+
+
+
+
+
+.container {
+  margin: 0 ;
+  text-align: center;
+}
+
+
+
+.left-column {
+  margin-right: 10%;
+}
+
+.right-column {
+  margin-left: 10%;
+}
+
+.lastseen {
+  margin: 5% 0 5%;
+}
+
 .RandomRecipes {
-  margin: 10px 0 10px;
+  margin: 5% 0 5%;
 }
 
 .recipe-preview {
@@ -45,9 +91,91 @@ export default {
   margin-bottom: 10px;
 }
 
-.title {
-  text-align: center;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  animation: fade 2s infinite;
+.custom-button {
+  background-color: #17a2b8;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.custom-button:hover {
+  background-color: #138496;
+}
+// Color
+$brown: #2b2520;
+$green: #39dbc2;
+$pink: #f41fbf;
+$yellow: #ffed28;
+$purple: #b028ff;
+$blue: #49A7FF;
+$red: #ff3838;
+$orange: #db7953;
+
+// Font
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Molle:ital@1&display=swap');
+
+
+// Size
+$extra-large: 100px;
+$large: 84px;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: $brown;
+  @include center;
+  height: 100%;
+  width: 100%;
+  background-image: url("https://cdn.pixabay.com/photo/2017/10/22/20/42/table-2879213_1280.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container1 {
+  
+  * {
+    margin: 0 0;
+  }
+  
+
+  .horizontal-cut-text {
+      font-size: $extra-large * 1.2;
+      font-weight: 900;
+      font-family: 'Catamaran', sans-serif;
+      text-transform: uppercase;
+      $dark-pink: darken($green, 10%);
+      $stripe-size: 3%;
+      background:
+      -webkit-linear-gradient(270deg, $dark-pink, $dark-pink 50%,      transparent 50%),
+      -webkit-repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent $stripe-size,
+        white $stripe-size,
+        white $stripe-size * 2,
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+        text-shadow: 6px 6px rgba(black, 0.4),
+  }
 }
 </style>
