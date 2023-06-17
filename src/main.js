@@ -93,12 +93,20 @@ const shared_data = {
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
+    localStorage.setItem("lastSearch", JSON.stringify({}));
+    this.lastSearch = {}
+    localStorage.setItem("LastSeenRecipes", JSON.stringify({"recipes_id":[]}))
+    this.watchedRecipes = {"recipes_id":[]}
   },
   logout() {
     // Method to logout and clear the username
     console.log("logout");
     localStorage.removeItem("username");
     this.username = undefined;
+    localStorage.removeItem("lastSearch");
+    this.lastSearch = undefined
+    localStorage.removeItem("LastSeenRecipes") 
+    this.watchedRecipes = undefined
   },
 };
 console.log(shared_data);

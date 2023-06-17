@@ -1,39 +1,33 @@
 <template>
-
   <div class="container">
-    
-    <h1 class="title">Welcome To Recipes Website</h1>    
-    <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" />
-    
-    
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-     {{ !$root.store.username }} 
-    <!-- <RecipePreviewList
-      title="Last Viewed Recipes"
-      :class="{
-        RandomRecipes: true,
-        blur: !$root.store.username,
-        center: true
-      }"
-      disabled
-    ></RecipePreviewList>  -->
-    <!-- <div
-      style="position: absolute;top: 0%;left: 50%;transform: translate(-50%, -50%);"
-    >
-      Centeredasdasdad
-    </div> -->
-
+    <h1 class="title">Welcome To Recipes Website</h1>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <RecipePreviewList title="Explore these recipes" class="RandomRecipes" />
+        <div class="text-center">
+          <router-link v-if="!$root.store.username" to="/login" class="btn btn-primary">
+            You need to Login to view this
+          </router-link>
+        </div>
+        <button @click="updateRandomRecipes" class="btn btn-primary mt-3">
+          Get Random Recipes
+        </button>
+      </div>
+    </div>
   </div>
-  
-  
 </template>
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
-    RecipePreviewList
-  }
+    RecipePreviewList,
+  },
+  methods: {
+    updateRandomRecipes() {
+      this.$refs.recipeList.updateRecipes();
+    },
+  },
 };
 </script>
 
@@ -43,27 +37,17 @@ export default {
 }
 
 .recipe-preview {
-  width: 100px; /* Adjust the width as per your requirements */
-  height: 100px; /* Adjust the height as per your requirements */
-  object-fit: cover; /* Preserve the aspect ratio and cover the container */
-  float: left; /* Align the photos on the left side */
-  margin-right: 10px; /* Add some space between the photos */
-  margin-bottom: 10px; /* Add some space below each photo */
-}
-
-.blur {
-  -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
-  filter: blur(2px);
-}
-
-::v-deep .blur .recipe-preview {
-  pointer-events: none;
-  cursor: default;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .title {
   text-align: center;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   animation: fade 2s infinite;
 }
 </style>
