@@ -8,7 +8,10 @@
         <div class="col-md-6">
           <div class="left-column">
             <p class="random-recipes">Random Recipes</p>
-            <RecipePreviewList ref="recipeList" title="Explore these recipes" class="RandomRecipes" />
+            <RecipePreviewList ref="recipeList" 
+            title="Explore these recipes" 
+            class="RandomRecipes"
+            page_type="Random" />
             <div class="text-center">
               <button @click="updateRandomRecipes" class="btn btn-info">
                 Get New Recipes
@@ -21,7 +24,11 @@
             <p v-if="!$root.store.username" class="random-recipes">You Need to Log in to Vue this</p>
             <LogIn v-if="!$root.store.username" />
             <p v-if="$root.store.username" class="random-recipes">Your Last viewed Recipes</p>
-            <RecipePreviewList ref="recipewtach" v-if="$root.store.username" title="Your Last seen Recipes" class="lastseen" />
+            <RecipePreviewList ref="recipewtach"
+             v-if="$root.store.username" 
+             title="Your Last seen Recipes"
+              class="lastseen" 
+              page_type="RecentleyViewed"/>
             <div class="text-center">
             </div>
           </div>

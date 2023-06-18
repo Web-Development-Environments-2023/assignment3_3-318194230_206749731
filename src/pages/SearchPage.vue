@@ -9,6 +9,8 @@
           label-cols-sm="3"
           label="Recipe Name:"
           label-for="recipeName"
+          :state="recipeNameError ? false : null" 
+          :invalid-feedback="recipeNameError ? 'Recipe name is required' : null" 
         >
           <b-form-input
             id="recipeName"
@@ -75,10 +77,10 @@
         </div>
       </b-form>
     </div>
-    <div v-if="lastSearch" class="lastSearch">
-          <h1>You recently searched:</h1>
-          <RecipePreview :recipe="lastSearch" />
-        </div>
+    <div v-if="Object.keys(lastSearch).length > 0 && $root.store.username" class="lastSearch">
+      <h1>You recently searched:</h1>
+      <RecipePreview :recipe="lastSearch" />
+      </div>
     </div>
     <div class="results-container" v-show="showresults">
       <div id="results" v-show="showresults">
@@ -128,7 +130,7 @@ export default {
         diet: null,
         intolerances: null
       },
-
+      recipeNameError: false,
       recipeCountOptions: [5, 10, 15],
       Cuisines: [
         "African",
@@ -203,10 +205,13 @@ export default {
     }
   },
   methods: {
-  // checkLastSearch(){
-  // },
   async onSearch(){ 
     const { recipeName, recipeCount, cuisines, diet,intolerances} = this.form;
+    if (recipeName.trim() === "") {
+      this.recipeNameError = true; // Set error state to true
+      return; // Stop executing the method
+    }
+    this.recipeNameError = false;
     let response;
     try {
       response = await this.axios.get(

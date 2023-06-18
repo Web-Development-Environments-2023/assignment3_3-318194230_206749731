@@ -12,15 +12,15 @@
       @mouseleave="setHovered(false)"
     >
       <b-card-text>
-        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen&& $root.store.username}]"><strong>{{ recipe.title }}</strong></h5>
+        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]"><strong>{{ recipe.title }}</strong></h5>
         <ul class="recipe-overview" :class="{ 'underline': isHovered }" :style="{ fontSize: '0.8rem', color: isImageClicked ? 'red' : 'inherit' }">
           <li>Recipe ID: {{ recipe.recipe_id }}</li>
           <li>Popularity: {{ recipe.popularity }}</li>
           <li>Vegan: {{ recipe.vegan }}</li>
           <li>Vegetarian: {{ recipe.vegetarian }}</li>
           <li>Gluten Free: {{ recipe.glutenFree }}</li>
-          <li>
-            <span v-if="recipe.favorite && $root.store.username">
+          <li v-if="recipe.favorite && $root.store.username">
+            <span>
               <i class="heart-icon">❤️</i>
             </span>
           </li>
@@ -57,33 +57,25 @@ export default {
   },
   methods: {
     async navigateToRecipe() {
-      try {
-        const recipeDetails = {
-          recipe_id: this.recipe.recipe_id,
-          title: this.recipe.title,
-          image: this.recipe.image,
-          readyInMinutes: this.recipe.readyInMinutes,
-          popularity: this.recipe.popularity,
-          vegetarian: this.recipe.vegetarian,
-          vegan: this.recipe.vegan,
-          glutenFree: this.recipe.glutenFree,
-          extendedIngredients: this.recipe.extendedIngredients,
-          instructions:this.recipe.instructions,
-          servings: this.recipe.servings}
-        const response = await this.axios.post(
-          this.$root.store.server_domain + "/users/MyRecipes",
-          {
-            username: this.$root.store.username,
-            recipeDetails: recipeDetails,
-          }
-        );
-    // Handle the response or perform any other actions
-        this.$router.push({ name: 'recipe', params: { recipeId: this.recipe.recipe_id } });
-    } catch (err) {
-      console.log(err.response);
-      this.form.submitError = err.response.data.message;
-    }
-  },
+      if (this.$root.store.username) {
+        try {
+          const response = await this.axios.post(
+            this.$root.store.server_domain + "/users/LastViewed",
+            {
+              username: this.$root.store.username,
+              recipe_id: this.recipe.recipe_id,
+            }
+          );
+          // Handle the response or perform any other action
+          console.log(response);
+        } catch (err) {
+          console.log(err.response);
+          this.form.submitError = err.response.data.message;
+        }
+      }
+      this.$router.push({ name: 'recipe', params: { recipeId: this.recipe.recipe_id } });
+    },
+
     setHovered(value) {
       this.isHovered = value;
     },

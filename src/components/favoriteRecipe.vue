@@ -52,6 +52,7 @@
                       <th>Gluten Free:</th>
                       <td>{{ recipe.glutenFree }}</td>
                     </tr>
+                   
                   </tbody>
                 </table>
               </div>
@@ -159,7 +160,4 @@ export default {
   font-weight: bold;
 }
 
-.table-row {
-  /* margin-bottom: 5px; */
-}
 </style>

@@ -83,7 +83,11 @@ export default {
       extendedIngredients: {
         type: Array,
         required: true
-      }
+      },
+      page_type: {
+      type: String,
+      required: true,
+    },
     },
 
   data() {
@@ -91,18 +95,21 @@ export default {
       recipes: []
     };
   },
-  mounted() {
-
-    this.updateRecipes();
-    
-
+  mounted:  function() {
+    let vm = this;
+    vm.$nextTick(function() {
+      if (this._props.page_type == "Random") this.updateRandomRecipes();
+      else if (this._props.page_type == "RecentleyViewed")
+        this.updateLastSeenRecipes();
+    });
   },
+  
   methods: {
     async updateRecipes() {
       try {
         const response = await this.axios.get(
           this.$root.store.server_domain + "/recipes/random",
-          {withCredentials:true}
+          {withCredentials:false}
         );
         this.recipes = [];
         const recipes = response.data;

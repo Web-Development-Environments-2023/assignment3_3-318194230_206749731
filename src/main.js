@@ -104,9 +104,10 @@ const shared_data = {
     localStorage.removeItem("username");
     this.username = undefined;
     localStorage.removeItem("lastSearch");
-    this.lastSearch = undefined
-    localStorage.removeItem("LastSeenRecipes") 
+    this.lastSearch ={}
+    localStorage.removeItem("LastSeenRecipes")
     this.watchedRecipes = undefined
+
   },
 };
 console.log(shared_data);
