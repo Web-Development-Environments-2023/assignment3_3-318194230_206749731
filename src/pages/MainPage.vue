@@ -7,6 +7,7 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="left-column">
+            <p class="random-recipes">Random Recipes</p>
             <RecipePreviewList ref="recipeList" title="Explore these recipes" class="RandomRecipes" />
             <div class="text-center">
               <button @click="updateRandomRecipes" class="btn btn-info">
@@ -17,7 +18,9 @@
         </div>
         <div class="col-md-6">
           <div class="right-column">
-            <router-link to="/login" v-if="!$root.store.username" class="btn btn-info btn-lg custom-button" role="button">You need to Login to view this</router-link>
+            <p v-if="!$root.store.username" class="random-recipes">You Need to Log in to Vue this</p>
+            <LogIn v-if="!$root.store.username" />
+            <p v-if="$root.store.username" class="random-recipes">Your Last viewed Recipes</p>
             <RecipePreviewList ref="recipewtach" v-if="$root.store.username" title="Your Last seen Recipes" class="lastseen" />
             <div class="text-center">
             </div>
@@ -30,9 +33,11 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import LogIn from "../components/LogIn.vue"
 export default {
   components: {
     RecipePreviewList,
+    LogIn
   },
   methods: {
     updateRandomRecipes() {
@@ -54,7 +59,13 @@ export default {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   animation: fade 2s infinite;
 }
-
+.random-recipes {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+}
 
 
 

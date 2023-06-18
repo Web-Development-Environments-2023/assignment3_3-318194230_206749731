@@ -7,7 +7,7 @@
       controls
       indicators
       background="#ababab"
-      style="text-shadow: 1px 0px 2px #333; height: 400px; overflow: hidden;"
+      style="text-shadow: 1px 0px 2px #333; height: 350px; overflow: hidden;"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
@@ -21,7 +21,8 @@
 
       <b-carousel-slide v-else v-for="r in recipes" :key="r.id" :text="r.instructions" img-src="https://fastly.picsum.photos/id/923/1024/480.jpg?hmac=wH-OHHwRuzh0Br74_C1jTWd06IZxd9zZCkX-ZfMMezc">
         <div class="slide-content">
-          <RecipePreview class="recipePreview" :recipe="r" />
+          <RecipePreview class="recipePreview" :recipe="r" 
+          style="width: 100%; max-width: 600px; margin: 20 auto;" />
         </div>
       </b-carousel-slide>
     </b-carousel>
