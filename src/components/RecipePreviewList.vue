@@ -21,8 +21,7 @@
 
       <b-carousel-slide v-else v-for="r in recipes" :key="r.id" :text="r.instructions" img-src="https://fastly.picsum.photos/id/923/1024/480.jpg?hmac=wH-OHHwRuzh0Br74_C1jTWd06IZxd9zZCkX-ZfMMezc">
         <div class="slide-content">
-          <RecipePreview class="recipePreview" :recipe="r" 
-          style="width: 100%; max-width: 600px; margin: 20 auto;" />
+          <RecipePreview class="recipePreview" :recipe="r" />
         </div>
       </b-carousel-slide>
     </b-carousel>
@@ -96,12 +95,13 @@ export default {
     };
   },
   mounted:  function() {
-    let vm = this;
-    vm.$nextTick(function() {
-      if (this._props.page_type == "Random") this.updateRandomRecipes();
-      else if (this._props.page_type == "RecentleyViewed")
-        this.updateLastSeenRecipes();
-    });
+    
+    if (this.page_type === "Random")
+      this.updateRecipes();
+    else if(this.page_type === "LastSeen"){
+      this.updateLastSeenRecipes();
+    }
+   
   },
   
   methods: {
@@ -125,19 +125,11 @@ export default {
           this.$root.store.server_domain + "/users/LastViewed",
          
         );
-        const recipes = [
-          response.data[0],
-          response.data[1],
-          response.data[2],
-        ];
         this.recipes = [];
-        for (let i = 0; i < recipes.length; i++) {
-          if (recipes[i] !== null) {
-            this.recipes.push(recipes[i]);
-          }
-        }
-     
+        const recipes = response.data;
+        this.recipes.push(...recipes);
       } catch (error) {
+        console.log(error);
       }
     }
   }
@@ -161,5 +153,11 @@ export default {
 
 body {
   overflow: hidden;
+}
+
+.recipePreview {
+  width: 100%;
+  max-width: 100%;
+  margin: 20px auto;
 }
 </style>

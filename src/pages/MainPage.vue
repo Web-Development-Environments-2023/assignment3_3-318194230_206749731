@@ -24,11 +24,11 @@
             <p v-if="!$root.store.username" class="random-recipes">You Need to Log in to Vue this</p>
             <LogIn v-if="!$root.store.username" />
             <p v-if="$root.store.username" class="random-recipes">Your Last viewed Recipes</p>
-            <RecipePreviewList ref="recipewtach"
-             v-if="$root.store.username" 
-             title="Your Last seen Recipes"
+            <RecipePreviewList 
+              v-if="$root.store.username" 
+              title="Your Last seen Recipes"
               class="lastseen" 
-              page_type="RecentleyViewed"/>
+              page_type="LastSeen"/>
             <div class="text-center">
             </div>
           </div>
@@ -40,19 +40,19 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+// import RecipePreviewLastSeen from "../components/RecipePreviewLastSeen.vue";
 import LogIn from "../components/LogIn.vue"
 export default {
   components: {
     RecipePreviewList,
+    // RecipePreviewLastSeen,
     LogIn
   },
   methods: {
     updateRandomRecipes() {
       this.$refs.recipeList.updateRecipes();
     },
-    updateLastSeenRecipes() {
-      this.$refs.recipewtach.updateLastSeenRecipes();
-    },
+   
     
   },
 };
