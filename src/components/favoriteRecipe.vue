@@ -52,7 +52,14 @@
                       <th>Gluten Free:</th>
                       <td>{{ recipe.glutenFree }}</td>
                     </tr>
-                   
+                    <tr class="table-row">
+                      <th>Favorite: </th>
+                      <td>{{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</td>
+                    </tr>
+                    <tr class="table-row">
+                      <th>Seen: </th>
+                      <td>{{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

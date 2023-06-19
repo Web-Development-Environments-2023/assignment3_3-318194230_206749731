@@ -77,10 +77,11 @@
         </div>
       </b-form>
     </div>
-    <div v-if="Object.keys(lastSearch).length > 0 && $root.store.username" class="lastSearch">
+    <div v-if="lastSearch && Object.keys(lastSearch).length !== 0" class="lastSearch">
       <h1>You recently searched:</h1>
       <RecipePreview :recipe="lastSearch" />
-      </div>
+    </div>
+
     </div>
     <div class="results-container" v-show="showresults">
       <div id="results" v-show="showresults">
@@ -205,6 +206,8 @@ export default {
     }
   },
   methods: {
+  // checkLastSearch(){
+  // },
   async onSearch(){ 
     const { recipeName, recipeCount, cuisines, diet,intolerances} = this.form;
     if (recipeName.trim() === "") {
