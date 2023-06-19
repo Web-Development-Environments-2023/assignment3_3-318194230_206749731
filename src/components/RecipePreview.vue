@@ -19,11 +19,13 @@
           <li>Vegan: {{ recipe.vegan }}</li>
           <li>Vegetarian: {{ recipe.vegetarian }}</li>
           <li>Gluten Free: {{ recipe.glutenFree }}</li>
-          <li v-if="recipe.favorite && $root.store.username">
+          <!-- <li v-if="recipe.favorite && $root.store.username">
             <span>
               <i class="heart-icon">❤️</i>
             </span>
-          </li>
+          </li> -->
+          <li>Favorite: {{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</li>
+          <li>Seen: {{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</li>
           <!-- Add any other recipe data you want to display -->
         </ul>
       </b-card-text>
