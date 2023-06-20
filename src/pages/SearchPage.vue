@@ -78,7 +78,7 @@
       </b-form>
     </div>
     <div v-if="lastSearch && Object.keys(lastSearch).length !== 0" class="lastSearch">
-      <h1>You recently searched:</h1>
+      <h1 style = "font-size: 1.2em">You recently searched:</h1>
       <RecipePreview :recipe="lastSearch" />
     </div>
 
@@ -318,6 +318,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height:80%;
   
 
   /* Responsive styles */

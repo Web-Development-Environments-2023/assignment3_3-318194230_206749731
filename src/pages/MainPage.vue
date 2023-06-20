@@ -1,6 +1,7 @@
 <template>
   <body>
     <div class="container">
+      <div class="background-div"></div>
       <div class='container1'>
       <h1 class="horizontal-cut-text">Welcome To Recipes Website</h1>
       </div>
@@ -24,7 +25,7 @@
             <p v-if="!$root.store.username" class="random-recipes">You Need to Log in to Vue this</p>
             <LogIn v-if="!$root.store.username" />
             <p v-if="$root.store.username" class="random-recipes">Your Last viewed Recipes</p>
-            <RecipePreviewList 
+            <RandomList 
               v-if="$root.store.username" 
               title="Your Last seen Recipes"
               class="lastseen" 
@@ -39,12 +40,10 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
 import RandomList from "../components/RecipeRandomList.vue";
 import LogIn from "../components/LogIn.vue"
 export default {
   components: {
-    RecipePreviewList,
     RandomList,
     LogIn
   },
@@ -59,7 +58,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 
 .title {
   text-align: center;
@@ -80,6 +78,7 @@ export default {
 .container {
   margin: 0 ;
   text-align: center;
+  
 }
 
 
@@ -155,22 +154,37 @@ $large: 84px;
 
 body {
   font-family: Arial, sans-serif;
-  min-height: 100%;
+  min-height: 00%;
   min-width: 100%;
-  background-color: $brown;
-  @include center;
-  height: 100%;
-  width: 100%;
   background-image: url("https://cdn.pixabay.com/photo/2017/10/22/20/42/table-2879213_1280.jpg");
   background-size: cover;
-  background-position: center;
   background-repeat: no-repeat;
+  overflow-y: scroll;
+  @include center;
+  height: 200%;
+  width: 100%;
+
 }
+.background-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://cdn.pixabay.com/photo/2017/10/22/20/42/table-2879213_1280.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    overflow-y: scroll;
+  }
+
 
 .container1 {
   
   * {
-    margin: 0 0;
+    position: relative; /* Add this line */
+    z-index: 1; 
+    height:100%
   }
   
 
@@ -197,3 +211,4 @@ body {
   }
 }
 </style>
+
