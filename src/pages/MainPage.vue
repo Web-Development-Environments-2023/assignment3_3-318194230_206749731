@@ -8,7 +8,7 @@
         <div class="col-md-6">
           <div class="left-column">
             <p class="random-recipes">Random Recipes</p>
-            <RecipePreviewList ref="recipeList" 
+            <RandomList ref="recipeList" 
             title="Explore these recipes" 
             class="RandomRecipes"
             page_type="Random" />
@@ -40,12 +40,12 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
-// import RecipePreviewLastSeen from "../components/RecipePreviewLastSeen.vue";
+import RandomList from "../components/RecipeRandomList.vue";
 import LogIn from "../components/LogIn.vue"
 export default {
   components: {
     RecipePreviewList,
-    // RecipePreviewLastSeen,
+    RandomList,
     LogIn
   },
   methods: {
@@ -101,12 +101,12 @@ export default {
 }
 
 .recipe-preview {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  margin-right: 10%;
+  margin-bottom: 10%;
 }
 
 .custom-button {
@@ -139,7 +139,7 @@ $orange: #db7953;
 
 
 // Size
-$extra-large: 100px;
+$extra-large: 85px;
 $large: 84px;
 
 *, *:before, *:after {
@@ -155,8 +155,8 @@ $large: 84px;
 
 body {
   font-family: Arial, sans-serif;
-  min-height: 100vh;
-  min-width: 100vw;
+  min-height: 100%;
+  min-width: 100%;
   background-color: $brown;
   @include center;
   height: 100%;

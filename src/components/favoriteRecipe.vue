@@ -3,7 +3,7 @@
   <div class="background-div">
     <!-- Introduction text -->
     <h4 style="font-family: 'Cleccj', sans-serif; color: black;">
-      Welcome to my recipe collection, where flavors come alive and creativity thrives. Enjoy the journey!
+      <b>Welcome to my recipe collection, where flavors come alive and creativity thrives. Enjoy the journey!</b>
     </h4>
 
     <div class="background-overlay">
@@ -52,14 +52,7 @@
                       <th>Gluten Free:</th>
                       <td>{{ recipe.glutenFree }}</td>
                     </tr>
-                    <tr class="table-row">
-                      <th>Favorite: </th>
-                      <td>{{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</td>
-                    </tr>
-                    <tr class="table-row">
-                      <th>Seen: </th>
-                      <td>{{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</td>
-                    </tr>
+
                   </tbody>
                 </table>
               </div>
@@ -112,7 +105,7 @@ export default {
   /* Styling for the recipe container */
   position: absolute;
   max-width: 70%;
-  margin: 5rem auto;
+  margin: 3rem auto;
   position: relative;
   border: 2.5px solid #eb0808;
   border-radius: 50px;
@@ -160,7 +153,7 @@ export default {
 
 .recipe-table th,
 .recipe-table td {
-  padding: 0.2rem;
+  padding: 0.005rem;
 }
 
 .recipe-table th {

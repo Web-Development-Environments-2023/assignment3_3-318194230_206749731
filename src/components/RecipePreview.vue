@@ -1,29 +1,24 @@
 <template>
   <div>
     <b-card
-      :img-src="recipe.image"
+    :img-src="recipe.image"
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem;"
+      style="width: 15rem; height: 27rem;"
       class="mb-2"
       @click="navigateToRecipe"
       @mouseover="setHovered(true)"
       @mouseleave="setHovered(false)"
-    >
+>
       <b-card-text>
-        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]"><strong>{{ recipe.title }}</strong></h5>
+        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 0.7rem;"><strong>{{ recipe.title }}</strong></h5>
         <ul class="recipe-overview" :class="{ 'underline': isHovered }" :style="{ fontSize: '0.8rem', color: isImageClicked ? 'red' : 'inherit' }">
           <li>Recipe ID: {{ recipe.recipe_id }}</li>
           <li>Popularity: {{ recipe.popularity }}</li>
           <li>Vegan: {{ recipe.vegan }}</li>
           <li>Vegetarian: {{ recipe.vegetarian }}</li>
           <li>Gluten Free: {{ recipe.glutenFree }}</li>
-          <!-- <li v-if="recipe.favorite && $root.store.username">
-            <span>
-              <i class="heart-icon">❤️</i>
-            </span>
-          </li> -->
           <li>Favorite: {{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</li>
           <li>Seen: {{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</li>
           <!-- Add any other recipe data you want to display -->
@@ -43,8 +38,8 @@
   </div>
 </template>
 
+
 <script>
-import axios from 'axios';
 export default {
   props: {
     recipe: {
@@ -106,7 +101,7 @@ export default {
 
 <style scoped>
 .title {
-  font-size: 1.2rem;
+  font-size:0.7rem;
 }
 .underline {
   text-decoration: underline;

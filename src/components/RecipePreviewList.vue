@@ -1,32 +1,19 @@
 <template>
   <div>
-    <b-carousel
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      style="text-shadow: 1px 0px 2px #333; height: 350px; overflow: hidden;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <template v-if="recipes.length === 0">
-        <b-carousel-slide>
-          <div class="slide-content">
-            <h2 class="no-recipes">YOU DON'T HAVE FAMILY RECIPES</h2>
-          </div>
-        </b-carousel-slide>
-      </template>
+    <template v-if="recipes.length === 0">
+      <div class="slide-content">
+        <h2 class="no-recipes">YOU DON'T HAVE ANY RECIPES</h2>
+      </div>
+    </template>
 
-      <b-carousel-slide v-else v-for="r in recipes" :key="r.id" :text="r.instructions" img-src="https://fastly.picsum.photos/id/923/1024/480.jpg?hmac=wH-OHHwRuzh0Br74_C1jTWd06IZxd9zZCkX-ZfMMezc">
-        <div class="slide-content">
-          <RecipePreview class="recipePreview" :recipe="r" />
-        </div>
-      </b-carousel-slide>
-    </b-carousel>
+    <div class="recipes-container" v-else>
+      <div v-for="r in recipes" :key="r.id" class="slide-content">
+        <RecipePreview class="recipePreview" :recipe="r" />
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
 import RecipePreview from "./RecipePreview.vue";
 export default {
@@ -137,18 +124,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slide-content {
+.recipes-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  flex-direction: row;
+  justify-content: space-between; /* You can change this as per your requirements */
+  flex-wrap: nowrap; /* Prevents wrapping to next line. Set it to wrap if you want the items to wrap to the next line when there isn't enough space */
 }
 
-.no-recipes {
-  text-align: center;
-  font-size: 24px;
-  color: #fff;
-  padding: 20px;
+/* If you want all items to be the same width */
+.recipes-container > .slide-content {
+  flex: 1 1 10px;
+}
+
+
+.recipe-row {
+  display: flex;
+}
+
+.slide-content {
+  flex: 1;
+  margin-right: 20px; /* Optional: Add margin between the recipe items */
 }
 
 body {
@@ -158,6 +153,6 @@ body {
 .recipePreview {
   width: 100%;
   max-width: 100%;
-  margin: 20px auto;
+  margin: 10px auto;
 }
 </style>

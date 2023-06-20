@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import RecipePreview from "../components/RecipePreview.vue";
+import RecipePreview from "../components/SerachPreReview.vue";
 
 export default {
   name: "SearchPage",
