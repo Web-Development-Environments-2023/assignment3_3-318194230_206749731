@@ -5,14 +5,14 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="width: 10rem; height: 5rem;"
+      style="width: 10rem; height: 15rem;"
       class="mb-2"
       @click="navigateToRecipe"
       @mouseover="setHovered(true)"
       @mouseleave="setHovered(false)"
     >
       <div class="title-wrapper">
-        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 0.7rem;"><strong>{{ recipe.title }}</strong></h5>
+        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 1rem;"><strong>{{ recipe.title }}</strong></h5>
         <ul class="recipe-overview" :class="{ 'underline': isHovered }" :style="{ fontSize: '0.8rem', color: isImageClicked ? 'red' : 'inherit' }">
           <!-- Recipe overview content -->
         </ul>

@@ -3,16 +3,18 @@
     <div class="container">
       <div class="background-div"></div>
       <div class='container1'>
-      <h1 class="horizontal-cut-text">Welcome To Recipes Website</h1>
+        <h1 class="horizontal-cut-text">Welcome To Recipes Website</h1>
       </div>
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="left-column">
             <p class="random-recipes">Random Recipes</p>
-            <RandomList ref="recipeList" 
-            title="Explore these recipes" 
-            class="RandomRecipes"
-            page_type="Random" />
+            <RandomList
+              ref="recipeList"
+              title="Explore these recipes"
+              class="RandomRecipes"
+              page_type="Random"
+            />
             <div class="text-center">
               <button @click="updateRandomRecipes" class="btn btn-info">
                 Get New Recipes
@@ -22,21 +24,24 @@
         </div>
         <div class="col-md-6">
           <div class="right-column">
-            <p v-if="!$root.store.username" class="random-recipes">You Need to Log in to Vue this</p>
+            <p v-if="!$root.store.username" class="random-recipes">
+              You Need to Log in to Vue this
+            </p>
             <LogIn v-if="!$root.store.username" />
-            <p v-if="$root.store.username" class="random-recipes">Your Last viewed Recipes</p>
-            <RandomList 
-              v-if="$root.store.username" 
+            <p v-if="$root.store.username" class="random-recipes">
+              Your Last viewed Recipes
+            </p>
+            <RandomList
+              v-if="$root.store.username"
               title="Your Last seen Recipes"
-              class="lastseen" 
-              page_type="LastSeen"/>
-            <div class="text-center">
-            </div>
+              class="lastseen"
+              page_type="LastSeen"
+            />
           </div>
         </div>
       </div>
     </div>
-</body>
+  </body>
 </template>
 
 <script>
@@ -76,15 +81,21 @@ export default {
 
 
 .container {
-  margin: 0 ;
+  margin: 5%;
   text-align: center;
-  
+  min-height: 40vh; /* Adjust to fit your needs */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
+
 
 
 
 .left-column {
   margin-right: 10%;
+  margin-bottom: 20px; /* Add some bottom margin to create space between the RandomList and the button */
 }
 
 .right-column {
@@ -144,7 +155,13 @@ $large: 84px;
 *, *:before, *:after {
   box-sizing: border-box;
 }
-
+.random-recipes {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+}
 
 @mixin center {
   display: flex;
@@ -154,14 +171,14 @@ $large: 84px;
 
 body {
   font-family: Arial, sans-serif;
-  min-height: 00%;
+  min-height: 100%;
   min-width: 100%;
   background-image: url("https://cdn.pixabay.com/photo/2017/10/22/20/42/table-2879213_1280.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   overflow-y: scroll;
   @include center;
-  height: 200%;
+  height: 100%;
   width: 100%;
 
 }
@@ -182,9 +199,9 @@ body {
 .container1 {
   
   * {
-    position: relative; /* Add this line */
-    z-index: 1; 
-    height:100%
+    position: relative;
+    z-index: 1;
+    height: 100%;
   }
   
 

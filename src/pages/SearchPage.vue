@@ -79,7 +79,7 @@
     </div>
     <div v-if="lastSearch && Object.keys(lastSearch).length !== 0" class="lastSearch">
       <h1 style = "font-size: 1.2em">You recently searched:</h1>
-      <RecipePreview :recipe="lastSearch" />
+      <RecipePreviewSearch :recipe="lastSearch" />
     </div>
 
     </div>
@@ -115,12 +115,14 @@
 </template>
 
 <script>
-import RecipePreview from "../components/SerachPreReview.vue";
+import RecipePreviewSearch from "../components/SerachPreReview.vue";
+import RecipePreview from "../components/RecipePreview.vue"
 
 export default {
   name: "SearchPage",
   components:{
-    RecipePreview 
+    RecipePreview,
+    RecipePreviewSearch 
   },
   data() {
     return {

@@ -134,7 +134,7 @@
    .background-div {
      position: fixed;
      width: 100%;
-     height: 100%;
+     height: 50%;
      background-image: url('../assets/1412206.jpg');
      background-size: cover;
      background-repeat: no-repeat;
@@ -144,9 +144,9 @@
    
    .container {
      background-color: #ffffff; /* Set the background color you want */
-   
-     max-width: 90%;
-     margin: 4rem auto;
+     max-width: 100%;
+     max-height: 50%;
+     margin: 2rem auto;
      position: relative;
      border: 2px solid #a15252;
      border-radius: 50px;
@@ -155,6 +155,8 @@
      display: flex;
      flex-direction: column;
      align-items: center;
+     max-height: 60%; /* Adjust the maximum height as per your needs */
+     overflow-y: auto; 
      
      
      /* Responsive styles */
@@ -162,6 +164,7 @@
        max-width: 100%;
        border-radius: 20px;
        box-shadow: none;
+       max-height: none;
        margin: 2rem auto;
      }
    }
