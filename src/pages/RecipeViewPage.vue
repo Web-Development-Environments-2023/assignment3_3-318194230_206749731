@@ -19,7 +19,10 @@
             <li><strong>Gluten Free:</strong> {{ recipe.glutenFree }}</li>
             <li><strong>Servings:</strong> {{ recipe.servings }}</li>
             <li><strong>Instructions:</strong></li>
-            <p v-html="recipe.instructions"></p>
+            <!-- <p v-html="recipe.analyzedInstructions"></p> -->
+            <ul>
+              <li v-for="(instruction, index) in recipe.analyzedInstructions" :key="index">{{ instruction }}</li>
+            </ul>
 <li><strong>Extended Ingredients:</strong></li>
 <table>
   <thead>

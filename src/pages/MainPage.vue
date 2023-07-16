@@ -1,17 +1,20 @@
 <template>
   <body>
     <div class="container">
+      <div class="background-div"></div>
       <div class='container1'>
-      <h1 class="horizontal-cut-text">Welcome To Recipes Website</h1>
+        <h1 class="horizontal-cut-text">Welcome To Recipes Website</h1>
       </div>
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="left-column">
             <p class="random-recipes">Random Recipes</p>
-            <RandomList ref="recipeList" 
-            title="Explore these recipes" 
-            class="RandomRecipes"
-            page_type="Random" />
+            <RandomList
+              ref="recipeList"
+              title="Explore these recipes"
+              class="RandomRecipes"
+              page_type="Random"
+            />
             <div class="text-center">
               <button @click="updateRandomRecipes" class="btn btn-info">
                 Get New Recipes
@@ -21,30 +24,31 @@
         </div>
         <div class="col-md-6">
           <div class="right-column">
-            <p v-if="!$root.store.username" class="random-recipes">You Need to Log in to Vue this</p>
+            <p v-if="!$root.store.username" class="random-recipes">
+              You Need to Log in to Vue this
+            </p>
             <LogIn v-if="!$root.store.username" />
-            <p v-if="$root.store.username" class="random-recipes">Your Last viewed Recipes</p>
-            <RecipePreviewList 
-              v-if="$root.store.username" 
+            <p v-if="$root.store.username" class="random-recipes">
+              Your Last viewed Recipes
+            </p>
+            <RandomList
+              v-if="$root.store.username"
               title="Your Last seen Recipes"
-              class="lastseen" 
-              page_type="LastSeen"/>
-            <div class="text-center">
-            </div>
+              class="lastseen"
+              page_type="LastSeen"
+            />
           </div>
         </div>
       </div>
     </div>
-</body>
+  </body>
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
 import RandomList from "../components/RecipeRandomList.vue";
 import LogIn from "../components/LogIn.vue"
 export default {
   components: {
-    RecipePreviewList,
     RandomList,
     LogIn
   },
@@ -59,7 +63,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 
 .title {
   text-align: center;
@@ -78,14 +81,21 @@ export default {
 
 
 .container {
-  margin: 0 ;
+  margin: 5%;
   text-align: center;
+  min-height: 40vh; /* Adjust to fit your needs */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
+
 
 
 
 .left-column {
   margin-right: 10%;
+  margin-bottom: 20px; /* Add some bottom margin to create space between the RandomList and the button */
 }
 
 .right-column {
@@ -145,7 +155,13 @@ $large: 84px;
 *, *:before, *:after {
   box-sizing: border-box;
 }
-
+.random-recipes {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+}
 
 @mixin center {
   display: flex;
@@ -157,20 +173,35 @@ body {
   font-family: Arial, sans-serif;
   min-height: 100%;
   min-width: 100%;
-  background-color: $brown;
+  background-image: url("https://cdn.pixabay.com/photo/2017/10/22/20/42/table-2879213_1280.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-y: scroll;
   @include center;
   height: 100%;
   width: 100%;
-  background-image: url("https://cdn.pixabay.com/photo/2017/10/22/20/42/table-2879213_1280.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+
 }
+.background-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://cdn.pixabay.com/photo/2017/10/22/20/42/table-2879213_1280.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+    overflow-y: scroll;
+  }
+
 
 .container1 {
   
   * {
-    margin: 0 0;
+    position: relative;
+    z-index: 1;
+    height: 100%;
   }
   
 
@@ -197,3 +228,4 @@ body {
   }
 }
 </style>
+

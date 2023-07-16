@@ -15,7 +15,7 @@
   </template>
   
   <script>
-  import RecipePreview from "./RecipePreview.vue";
+  import RecipePreview from "./SerachPreReview.vue";
   export default {
     name: "RecipePreviewList",
     components: {
@@ -127,10 +127,9 @@
 .recipes-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap; /* Prevents wrapping to next line. Set it to wrap if you want the items to wrap to the next line when there isn't enough space */
+  flex-wrap: nowrap; 
 }
 
-/* If you want all items to be the same width */
 .recipes-container > .slide-content {
   flex: 1 1 10px;
 }
