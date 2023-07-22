@@ -118,11 +118,13 @@ export default {
   methods: {
     async pesonalrecipes() {
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
           `${this.$root.store.server_domain}/users/MyRecipes`,
-          { withCredentials: true }
+          // { withCredentials: true }
         );
         this.recipes = response.data;
+        this.axios.defaults.withCredentials = false; 
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;

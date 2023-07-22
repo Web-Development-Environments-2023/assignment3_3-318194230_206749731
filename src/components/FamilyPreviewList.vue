@@ -33,6 +33,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  margin-top: 10rem;
 }
 .no-recipes {
   text-align: center;

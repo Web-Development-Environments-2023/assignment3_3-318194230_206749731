@@ -31,6 +31,9 @@
             <p v-if="$root.store.username" class="random-recipes">
               Your Last viewed Recipes
             </p>
+            <p v-else>
+              You do not have a favorite recipes
+            </p>
             <RandomList
               v-if="$root.store.username"
               title="Your Last seen Recipes"
@@ -50,7 +53,8 @@ import LogIn from "../components/LogIn.vue"
 export default {
   components: {
     RandomList,
-    LogIn
+    LogIn,
+    
   },
   methods: {
     updateRandomRecipes() {

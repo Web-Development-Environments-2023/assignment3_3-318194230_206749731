@@ -16,7 +16,10 @@
             <li><strong>Popularity:</strong> {{ recipe.popularity }}</li>
             <li><strong>Vegan:</strong> {{ recipe.vegan }}</li>
             <li><strong>Vegetarian:</strong> {{ recipe.vegetarian }}</li>
+
             <li><strong>Gluten Free:</strong> {{ recipe.glutenFree }}</li>
+            <li><strong>Favorite:</strong> {{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</li>
+            <li><strong>Seen:</strong> {{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</li>
             <li><strong>Servings:</strong> {{ recipe.servings }}</li>
             <li><strong>Instructions:</strong></li>
             <!-- <p v-html="recipe.analyzedInstructions"></p> -->
@@ -88,10 +91,12 @@ export default {
       // response = this.$route.params.response;
 
       try {
+            this.axios.defaults.withCredentials = true;
             response = await this.axios.get(
-              `${this.$root.store.server_domain}/recipes/fullRecipeReview/${this.$route.params.recipeId}`
+              `${this.$root.store.server_domain}/recipes/fullRecipeReview/${this.$route.params.recipeId}`,
+              // { withCredentials: true }
             );
-            
+            this.axios.defaults.withCredentials = false;
 
 
 

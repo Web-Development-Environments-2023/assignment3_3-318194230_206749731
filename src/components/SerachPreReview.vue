@@ -5,7 +5,7 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="width: 10rem; height: 15rem;"
+      style="width: 12rem; height: 13rem;"
       class="mb-2"
       @click="navigateToRecipe"
       @mouseover="setHovered(true)"
@@ -44,14 +44,19 @@ export default {
     async navigateToRecipe() {
       if (this.$root.store.username) {
         try {
+          this.axios.defaults.withCredentials = true;
+
           const response = await this.axios.post(
             this.$root.store.server_domain + "/users/LastViewed",
             {
               username: this.$root.store.username,
               recipe_id: this.recipe.recipe_id,
-            }
+            },
+            // { withCredentials: true }
           );
+          this.axios.defaults.withCredentials = false;
           // Handle the response or perform any other action
+          //  
           console.log(response);
         } catch (err) {
           console.log(err.response);
@@ -74,7 +79,8 @@ export default {
           {
             username: this.$root.store.username,
             recipeId: this.recipe.recipe_id,
-          }
+          },
+          { withCredentials: true }
         );
         // Handle the response or perform any other actions
       } catch (err) {
@@ -95,6 +101,7 @@ export default {
 }
 .title {
   font-size:0.7rem;
+  margin: 0 ;
 }
 .underline {
   text-decoration: underline;

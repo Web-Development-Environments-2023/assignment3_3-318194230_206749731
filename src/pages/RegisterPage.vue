@@ -180,7 +180,7 @@ import {
 } from "vuelidate/lib/validators";
 
 export default {
-  name: "Register",
+  name: "RegisterComponent",
   data() {
     return {
       form: {
@@ -243,7 +243,10 @@ export default {
       return $dirty ? !$error : null;
     },
     async Register() {
+      // this.axios.defaults.withCredentials=true;
+
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
           this.$root.store.server_domain + "/Register",
@@ -255,8 +258,11 @@ export default {
             country: this.form.country,
             password: this.form.password,
             email: this.form.email
-          }
+          },
+          // { withCredentials: true }
+
         );
+        this.axios.defaults.withCredentials = false; 
         this.$router.push("/login");
         // console.log(response);
       } catch (err) {

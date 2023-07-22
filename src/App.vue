@@ -88,10 +88,12 @@ export default {
       }
 
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.post(
           this.$root.store.server_domain + "/Logout",
-          { withCredentials: true }
+          // { withCredentials: true }
         );
+        this.axios.defaults.withCredentials = false;
 
         console.log(response.data);
       } catch (error) {

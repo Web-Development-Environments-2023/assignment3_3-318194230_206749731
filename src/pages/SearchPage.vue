@@ -77,9 +77,12 @@
         </div>
       </b-form>
     </div>
-    <div v-if="lastSearch && Object.keys(lastSearch).length !== 0" class="lastSearch">
+    <div v-if="$root.store.username && lastSearch && Object.keys(lastSearch).length !== 0" class="lastSearch">
       <h1 style = "font-size: 1.2em">You recently searched:</h1>
-      <RecipePreviewSearch :recipe="lastSearch" />
+      <!-- <RecipePreviewSearch :recipe="lastSearch" /> -->
+      <img :src="lastSearch.image" alt="Image" style="width: 13rem; height: 5rem;" class="mb-2">
+      <p style="font-size: 0.6rem;"><strong>{{ lastSearch.title }}</strong></p>
+
     </div>
 
     </div>
@@ -115,14 +118,14 @@
 </template>
 
 <script>
-import RecipePreviewSearch from "../components/SerachPreReview.vue";
 import RecipePreview from "../components/RecipePreview.vue"
+
 
 export default {
   name: "SearchPage",
   components:{
     RecipePreview,
-    RecipePreviewSearch 
+     
   },
   data() {
     return {
@@ -218,12 +221,16 @@ export default {
     }
     this.recipeNameError = false;
     let response;
+    // this.axios.defaults.withCredentials = true;
     try {
+      this.axios.defaults.withCredentials = true;
       response = await this.axios.get(
         this.$root.store.server_domain + "/recipes/searchForRecipe?query=" + recipeName + "&number=" +recipeCount
-        + "&cuisine='" + cuisines + "'&diet=" + diet + "&intolerance=" + intolerances, { withCredentials: true });
+        + "&cuisine='" + cuisines + "'&diet=" + diet + "&intolerance=" + intolerances,
+        //  { withCredentials: true }
+         );
       if (response.status !== 200) this.$router.replace("/NotFound");
-      
+      this.axios.defaults.withCredentials = false; 
     } catch (error) {
       console.log("error.response.status", error.response.status);
       this.$router.replace("/NotFound");

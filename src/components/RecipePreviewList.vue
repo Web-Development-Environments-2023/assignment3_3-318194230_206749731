@@ -93,11 +93,13 @@ export default {
   
   methods: {
     async updateRecipes() {
+      axios.defaults.withCredentials=true;
       try {
         const response = await this.axios.get(
           this.$root.store.server_domain + "/recipes/random",
-          {withCredentials:false}
+          {withCredentials:true}
         );
+        this.axios.defaults.withCredentials = false; 
         this.recipes = [];
         const recipes = response.data;
         this.recipes.push(...recipes);
@@ -106,12 +108,16 @@ export default {
       }
     },
     async updateLastSeenRecipes() {
+      // this.axios.defaults.withCredentials = true;
       try {
+        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
          
           this.$root.store.server_domain + "/users/LastViewed",
+          // { withCredentials: true }
          
         );
+        this.axios.defaults.withCredentials = false; 
         this.recipes = [];
         const recipes = response.data;
         this.recipes.push(...recipes);

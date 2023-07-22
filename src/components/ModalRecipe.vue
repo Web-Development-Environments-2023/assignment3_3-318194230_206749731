@@ -257,8 +257,11 @@ export default {
 
       // Pad the recipe ID with leading '9' characters to make it 8 characters long
       const paddedRecipeId = this.recipeId.padStart(8, '9');
+      // this.axios.defaults.withCredentials = true;
+
 
       try {
+        this.axios.defaults.withCredentials = true;
         // Send a POST request to create the recipe
         const response = await this.axios.post(
           this.$root.store.server_domain + "/users/MyRecipes",
@@ -276,9 +279,9 @@ export default {
             servings: this.servings,
             analyzedInstructions: this.analyzedInstructions,
           },
-          { withCredentials: true }
+          // { withCredentials: true }
         );
-
+        this.axios.defaults.withCredentials = false; 
         console.log(response.data);
 
         // Add the submitted recipe to the list

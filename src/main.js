@@ -1,5 +1,9 @@
 // Import necessary modules and components
 import Vue from "vue";
+
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
+
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import axios from "axios";

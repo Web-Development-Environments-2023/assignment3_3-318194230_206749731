@@ -49,6 +49,7 @@
           </table>
         </td>
       </tr>
+      
       <tr>
         <td><strong>Preparation Method:</strong></td>
         <td>{{ recipe.preparationMethod }}</td>
@@ -104,6 +105,7 @@ export default {
 
 .container {
   /* Styling for the recipe container */
+  
   position: absolute;
   max-width: 70%;
   margin: 5rem auto;
@@ -119,6 +121,10 @@ export default {
   color: black;
   position: relative;
   z-index: 2;
+  margin-top: 10rem;   /* Adjust this to increase/decrease top margin */
+  margin-right: auto;
+  margin-bottom: 5rem;
+  margin-left: auto;
 
   @media (max-width: 767px) {
     /* Responsive styling for smaller screens */
@@ -141,14 +147,14 @@ export default {
 @media (max-width: 479px) {
   /* Additional styling for even smaller screens */
   .container {
-    padding: 0.5rem;
+    padding: 3rem;
   }
 }
 
 /* Updated CSS for recipe table */
 .recipe-table {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 2rem;
   text-align: left;
 }
 
@@ -156,5 +162,9 @@ export default {
 
 .recipe-table th {
   font-weight: bold;
+}
+.recipe-image {
+  max-width: 70%;
+  height: auto;
 }
 </style>

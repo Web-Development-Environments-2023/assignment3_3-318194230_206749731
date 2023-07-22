@@ -67,7 +67,7 @@
    <script>
    import { required } from "vuelidate/lib/validators";
    export default {
-     name: "Login",
+     name: "LoginComponent",
      data() {
        return {
          form: {
@@ -93,8 +93,9 @@
          return $dirty ? !$error : null;
        },
        async Login() {
+        // axios.defaults.withCredentials=true;
          try {
-           
+          // axios.defaults.withCredentials=true;
            const response = await this.axios.post(
              // "https://test-for-3-2.herokuapp.com/user/Login",
              this.$root.store.server_domain +"/Login",
@@ -104,10 +105,12 @@
              {
                username: this.form.username,
                password: this.form.password
-             }
+             },
+             { withCredentials: true }
            );
            // console.log(response);
            // this.$root.loggedIn = true;
+          //  this.axios.defaults.withCredentials = false; 
            console.log(this.$root.store.login);
            this.$root.store.login(this.form.username);
            this.$root.loggedIn = true;

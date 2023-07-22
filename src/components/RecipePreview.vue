@@ -12,15 +12,15 @@
       @mouseleave="setHovered(false)"
 >
       <b-card-text>
-        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 0.7rem;"><strong>{{ recipe.title }}</strong></h5>
+        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 0.5rem;"><strong>{{ recipe.title }}</strong></h5>
         <ul class="recipe-overview" :class="{ 'underline': isHovered }" :style="{ fontSize: '0.8rem', color: isImageClicked ? 'red' : 'inherit' }">
           <li>Recipe ID: {{ recipe.recipe_id }}</li>
           <li>Popularity: {{ recipe.popularity }}</li>
           <li>Vegan: {{ recipe.vegan }}</li>
           <li>Vegetarian: {{ recipe.vegetarian }}</li>
           <li>Gluten Free: {{ recipe.glutenFree }}</li>
-          <li>Favorite: {{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</li>
-          <li>Seen: {{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</li>
+          <li v-if="$root.store.username">Favorite: {{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</li>
+          <li v-if="$root.store.username">Seen: {{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</li>
           <!-- Add any other recipe data you want to display -->
         </ul>
       </b-card-text>
@@ -55,18 +55,24 @@ export default {
   },
   methods: {
     async navigateToRecipe() {
+      // 
       if (this.$root.store.username) {
         try {
+          this.axios.defaults.withCredentials = true;
           const response = await this.axios.post(
             this.$root.store.server_domain + "/users/LastViewed",
             {
               username: this.$root.store.username,
               recipe_id: this.recipe.recipe_id,
-            }
+            },
+            // { withCredentials: true }
+
           );
           // Handle the response or perform any other action
+          this.axios.defaults.withCredentials = false; 
           console.log(response);
-        } catch (err) {
+        } 
+        catch (err) {
           console.log(err.response);
           this.form.submitError = err.response.data.message;
         }
@@ -87,7 +93,9 @@ export default {
           {
             username: this.$root.store.username,
             recipeId: this.recipe.recipe_id,
-          }
+          },
+          { withCredentials: true }
+
         );
         // Handle the response or perform any other actions
       } catch (err) {
