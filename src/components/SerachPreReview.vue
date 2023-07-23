@@ -5,7 +5,7 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="width: 12rem; height: 13rem;"
+      style="width: 12rem; height: 15rem;"
       class="mb-2"
       @click="navigateToRecipe"
       @mouseover="setHovered(true)"

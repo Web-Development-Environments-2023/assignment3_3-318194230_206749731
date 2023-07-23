@@ -21,18 +21,13 @@
         <td><strong>Owner of this recipe:</strong></td>
         <td>{{ recipe.recipeOwner }}</td>
       </tr>
+      <table class="recipe-table">
       <tr>
-        <td><strong>Best time to make it:</strong></td>
-        <td>
-          <table class="recipe-table">
-            <tbody>
-              <tr v-for="time in recipe.specialOccasions" :key="time">
-                <td>{{ time }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
+        <td><strong>Best Occasion:</strong></td>
+        <td v-for="time in recipe.specialOccasions" :key="time">{{ time }}</td>
       </tr>
+    </table>
+
       <tr>
         <td><strong>Cooking Time:</strong></td>
         <td>{{ recipe.cookingTime }}</td>
@@ -164,7 +159,7 @@ export default {
   font-weight: bold;
 }
 .recipe-image {
-  max-width: 70%;
+  max-width: 90%;
   height: auto;
 }
 </style>

@@ -3,6 +3,7 @@
         <div class="background-overlay">
           <div class="container">
               <div class="recipe-header mt-3 mb-4">
+                <button type="button" class="btn btn-danger" @click="prepareRecipe">Prepare the Recipe</button>
         <h1 class="centered-text bold-text glow-effect">{{ recipe.title }}</h1>
                 <img :src="recipe.image" class="center" />
               </div>
@@ -114,7 +115,13 @@ export default {
     } catch (error) {
       console.log(error);
     }
-  }
+  },
+  methods: {
+    prepareRecipe() {
+      // Navigate to the recipe preparation page passing the recipeId as a route parameter
+      this.$router.push({ name: 'recipe-preparation', params: { recipeId: this.recipe.recipe_id } });
+    },
+  },
 };
 </script>
 

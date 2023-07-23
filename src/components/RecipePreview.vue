@@ -12,7 +12,7 @@
       @mouseleave="setHovered(false)"
 >
       <b-card-text>
-        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 0.5rem;"><strong>{{ recipe.title }}</strong></h5>
+        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 0.7rem;"><strong>{{ recipe.title }}</strong></h5>
         <ul class="recipe-overview" :class="{ 'underline': isHovered }" :style="{ fontSize: '0.8rem', color: isImageClicked ? 'red' : 'inherit' }">
           <li>Recipe ID: {{ recipe.recipe_id }}</li>
           <li>Popularity: {{ recipe.popularity }}</li>

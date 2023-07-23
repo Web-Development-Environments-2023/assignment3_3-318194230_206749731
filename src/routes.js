@@ -50,6 +50,12 @@ const routes = [
     component: () => import("./pages/AboutPage"),
     
   },
+  {
+    path: "/RecipePreparation/:recipeId",
+    name: "recipe-preparation",
+    component: () => import("./pages/RecipePreparation"),
+    
+  },
   
   {
     path: "*",
