@@ -1,42 +1,29 @@
 <template>
   <div>
     <b-card
-    :img-src="recipe.image"
+      :img-src="recipe.image"
       img-alt="Image"
       img-top
       tag="article"
-      style="width: 15rem; height: 27rem;"
+      style="width: 12rem; height: 15rem;"
       class="mb-2"
       @click="navigateToRecipe"
       @mouseover="setHovered(true)"
       @mouseleave="setHovered(false)"
->
-      <b-card-text>
-        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 0.7rem;"><strong>{{ recipe.title }}</strong></h5>
+    >
+      <div class="title-wrapper">
+        <h5 class="title" :class="[{'underline': isHovered}, {'blue-text': recipe.seen && $root.store.username}]" style="font-size: 1rem;"><strong>{{ recipe.title }}</strong></h5>
         <ul class="recipe-overview" :class="{ 'underline': isHovered }" :style="{ fontSize: '0.8rem', color: isImageClicked ? 'red' : 'inherit' }">
-          <li>Recipe ID: {{ recipe.recipe_id }}</li>
-          <li>Popularity: {{ recipe.popularity }}</li>
-          <li>Vegan: {{ recipe.vegan }}</li>
-          <li>Vegetarian: {{ recipe.vegetarian }}</li>
-          <li>Gluten Free: {{ recipe.glutenFree }}</li>
-          <li v-if="$root.store.username">Favorite: {{  recipe.favorite ? '❤️' : 'It is not in your favorite'}}</li>
-          <li v-if="$root.store.username">Seen: {{  recipe.seen ? 'You have seen this recipe' : 'You did not seen this recipe'}}</li>
-          <!-- Add any other recipe data you want to display -->
+          <!-- Recipe overview content -->
         </ul>
-      </b-card-text>
+      </div>
       <div class="d-flex justify-content-between">
-        <b-button
-          v-if="$root.store.username"
-          variant="primary"
-          class="mb-2"
-          @click.stop="addFavrecipe"
-        >
-          <b-icon icon="heart-fill"></b-icon> Like
-        </b-button>
+        <!-- Additional content if needed -->
       </div>
     </b-card>
   </div>
 </template>
+
 
 
 <script>
@@ -55,10 +42,10 @@ export default {
   },
   methods: {
     async navigateToRecipe() {
-      // 
       if (this.$root.store.username) {
         try {
           this.axios.defaults.withCredentials = true;
+
           const response = await this.axios.post(
             this.$root.store.server_domain + "/users/LastViewed",
             {
@@ -66,13 +53,12 @@ export default {
               recipe_id: this.recipe.recipe_id,
             },
             // { withCredentials: true }
-
           );
+          this.axios.defaults.withCredentials = false;
           // Handle the response or perform any other action
-          this.axios.defaults.withCredentials = false; 
+          //  
           console.log(response);
-        } 
-        catch (err) {
+        } catch (err) {
           console.log(err.response);
           this.form.submitError = err.response.data.message;
         }
@@ -95,7 +81,6 @@ export default {
             recipeId: this.recipe.recipe_id,
           },
           { withCredentials: true }
-
         );
         // Handle the response or perform any other actions
       } catch (err) {
@@ -108,8 +93,15 @@ export default {
 </script>
 
 <style scoped>
+.title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .title {
   font-size:0.7rem;
+  margin: 0 ;
 }
 .underline {
   text-decoration: underline;

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import RecipePreview from "./RecipePreview.vue";
+import RecipePreview from "./SerachPreReview.vue";
 export default {
   name: "RecipePreviewList",
   components: {
@@ -93,13 +93,11 @@ export default {
   
   methods: {
     async updateRecipes() {
-      axios.defaults.withCredentials=true;
       try {
         const response = await this.axios.get(
           this.$root.store.server_domain + "/recipes/random",
-          {withCredentials:true}
+          {withCredentials:false}
         );
-        this.axios.defaults.withCredentials = false; 
         this.recipes = [];
         const recipes = response.data;
         this.recipes.push(...recipes);
@@ -108,16 +106,12 @@ export default {
       }
     },
     async updateLastSeenRecipes() {
-      // this.axios.defaults.withCredentials = true;
       try {
-        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
          
           this.$root.store.server_domain + "/users/LastViewed",
-          // { withCredentials: true }
          
         );
-        this.axios.defaults.withCredentials = false; 
         this.recipes = [];
         const recipes = response.data;
         this.recipes.push(...recipes);
@@ -131,34 +125,32 @@ export default {
 
 <style lang="scss" scoped>
 .recipes-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between; /* You can change this as per your requirements */
-  flex-wrap: nowrap; /* Prevents wrapping to next line. Set it to wrap if you want the items to wrap to the next line when there isn't enough space */
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap; 
 }
 
-/* If you want all items to be the same width */
 .recipes-container > .slide-content {
-  flex: 1 1 10px;
+flex: 1 1 10px;
 }
 
 
 .recipe-row {
-  display: flex;
+display: flex;
 }
 
 .slide-content {
-  flex: 1;
-  margin-right: 20px; /* Optional: Add margin between the recipe items */
+flex: 1;
+margin-right: 20px; /* Optional: Add margin between the recipe items */
 }
 
 body {
-  overflow: hidden;
+overflow: hidden;
 }
 
 .recipePreview {
-  width: 100%;
-  max-width: 100%;
-  margin: 10px auto;
+width: 100%;
+max-width: 100%;
+margin: 10px auto;
 }
 </style>
